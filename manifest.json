@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "一鍵填入帳密",
+    "version": "0.0.1",
+    "description": "依網址規則，自動填入帳號/密碼/其他欄位（支援多 selector 同步填入）",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "icons": {
+        "128": "favicon.png"
+    },
+    "action": {
+        "default_title": "一鍵填入帳密",
+        "default_popup": "popup.html",
+        "default_icon": "favicon.png"
+    },
+    "options_page": "options.html",
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "contentScript.js"
+            ],
+            "run_at": "document_idle",
+            "all_frames": true
+        }
+    ]
+}

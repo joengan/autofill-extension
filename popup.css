@@ -1,0 +1,425 @@
+:root {
+    --primary-color: #3b82f6;
+    --success-color: #16a34a;
+    --bg-color: #ffffff;
+    --text-main: #111827;
+    --text-sub: #6b7280;
+    --text-disabled: #9ca3af;
+    --text-disabled-light: #d1d5db;
+    --border-color: #e5e7eb;
+    --tab-bg: #f9fafb;
+    --result-bg: #f8fafc;
+    --button-light-bg: #e5e7eb;
+    --button-dark-bg: #111827;
+    --button-dark-text: #fff;
+    --strength-bg: #e5e7eb;
+    --slider-bg: #ccc;
+    --detect-bg: #f3f4f6;
+    --font-mono: 'SF Mono', 'Fira Code', 'Roboto Mono', Menlo, Consolas, monospace;
+    /* 淺色模式：維持您原本的鮮艷配色 */
+    --strength-weak: #ef4444;
+    --strength-normal: #f97316;
+    --strength-good: #eab308;
+    --strength-strong: #4ade80;
+    --strength-top: #10b981;
+    --strength-tight: #0ea5e9;
+    --strength-prof: #6366f1;
+    --strength-safe-gradient: linear-gradient(90deg, #4f46e5, #7c3aed, #ec4899);
+    /* 淺色模式下的紫色文字 */
+    --strength-safe-text: #7c3aed;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #60a5fa;
+        --success-color: #22c55e;
+        --bg-color: #1f2937;
+        --text-main: #f9fafb;
+        --text-sub: #9ca3af;
+        --text-disabled: #6b7280;
+        --text-disabled-light: #4b5563;
+        --border-color: #374151;
+        --tab-bg: #111827;
+        --result-bg: #111827;
+        --button-light-bg: #374151;
+        --button-dark-bg: #4b5563;
+        --button-dark-text: #f9fafb;
+        --strength-bg: #374151;
+        --slider-bg: #4b5563;
+        --detect-bg: #111827;
+        /* 深色模式：稍微降低飽和度，提高亮度（粉色調） */
+        --strength-weak: #f87171;
+        /* 柔和紅 */
+        --strength-normal: #fb923c;
+        /* 柔和橘 */
+        --strength-good: #fbbf24;
+        /* 柔和金 */
+        --strength-strong: #86efac;
+        /* 柔和綠 */
+        --strength-top: #34d399;
+        /* 柔和翠 */
+        --strength-tight: #38bdf8;
+        /* 柔和天藍 */
+        --strength-prof: #818cf8;
+        /* 柔和靛藍 */
+        /* 漸層也可以微調得更深邃一點 */
+        --strength-safe-gradient: linear-gradient(90deg, #6366f1, #a855f7, #f472b6);
+        /* 深色模式下調亮紫色，增加對比度 */
+        --strength-safe-text: #a855f7;
+    }
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    width: 360px;
+    margin: 0;
+    background: var(--bg-color);
+    color: var(--text-main);
+}
+
+/* 分頁切換 */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--tab-bg);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-sub);
+    font-weight: 500;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 通用元件 */
+.url {
+    font-size: 12px;
+    color: var(--text-sub);
+    word-break: break-all;
+    margin-bottom: 10px;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+button {
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    color: var(--text-disabled);
+}
+
+.btn-main {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+}
+
+.btn-sub {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.green {
+    background: var(--success-color);
+    color: #fff;
+}
+
+.dark {
+    background: var(--button-dark-bg);
+    color: var(--button-dark-text);
+}
+
+.light {
+    background: var(--button-light-bg);
+    color: var(--text-main);
+}
+
+.msg {
+    margin-top: 10px;
+    font-size: 12px;
+    min-height: 1.2em;
+    color: var(--text-main);
+}
+
+.hint {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.4;
+    margin-top: 8px;
+}
+
+select {
+    background: var(--bg-color);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* 密碼產生器 UI */
+.result-box {
+    background: var(--result-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    text-align: center;
+    word-break: break-all;
+    margin-bottom: 8px;
+    position: relative;
+    color: var(--text-main);
+}
+
+.strength-meter {
+    height: 6px;
+    background: var(--strength-bg);
+    border-radius: 3px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+#strength-bar {
+    height: 100%;
+    width: var(--bar-width, 0%);
+    background: var(--bar-bg, var(--strength-weak));
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.3s ease;
+    border-radius: 9999px;
+}
+
+#strength-text {
+    color: var(--label-color, var(--text-main));
+    /* 讓文字顏色變換時也有平滑效果 */
+    transition: color 0.3s ease;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 15px;
+}
+
+.gen-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-main);
+}
+
+.len-display {
+    min-width: 25px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 簡易 Switch 樣式 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 18px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--slider-bg);
+    transition: .3s;
+    border-radius: 18px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--primary-color);
+}
+
+input:checked+.slider:before {
+    transform: translateX(16px);
+}
+
+#detectOut {
+    margin-top: 10px;
+}
+
+#detectJson {
+    font-size: 10px;
+    background: var(--detect-bg);
+    padding: 8px;
+    border-radius: 8px;
+    color: var(--text-main);
+    overflow-x: auto;
+}
+
+/* Stepper 容器 */
+.stepper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--result-bg);
+    padding: 2px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.stepper>button.step-btn:disabled,
+.stepper>span.len-display.disabled {
+    color: var(--text-disabled-light);
+}
+
+/* 微調按鈕樣式 */
+.step-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+    transform: translateY(1px);
+}
+
+.step-btn:hover:not(:disabled) {
+    background: var(--button-light-bg);
+}
+
+.step-btn:active {
+    opacity: 0.6;
+}
+
+/* 讓長度數字寬度固定，避免增減時抖動 */
+.len-display {
+    min-width: 22px;
+    /* 改用 Flex 並強制置中 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+}
+
+/* 控制組容器 */
+.length-control-group {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    flex: 1;
+}
+
+/* 自定義長度條 */
+input[type="range"] {
+    /* -webkit-appearance: none; */
+    /* appearance: none; */
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    accent-color: var(--primary-color);
+    background: var(--slider-bg);
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+/* 滑桿圓點 */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border: 2px solid var(--bg-color);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin-top: -5px;
+}
+
+/* 針對 Chrome/Edge 的軌道設定 */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* --- 禁用狀態 (Disabled) --- */
+/* 當長度條被禁用時，降低透明度並改變顏色 */
+input[type="range"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    /* 讓 accent-color 變灰 */
+    accent-color: var(--text-sub);
+    /* 變為更淡的顏色 */
+    background: var(--border-color);
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    background: var(--text-sub);
+    /* 圓點變為灰色 */
+    border-color: var(--border-color);
+}
